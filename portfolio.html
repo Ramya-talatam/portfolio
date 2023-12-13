@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+.social-media a{
+color:white;
+}
+.loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            font-size: 24px;
+        }
+        nav {
+            background-color: #3498db;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+nav a, .cta-button {
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+        }
+        nav a:hover {
+            color: #ecf0f1;
+        }
+
+        section {
+            padding: 50px;
+        }
+
+        h1, h2, h3 {
+            color: #3498db;
+        }
+
+        #home {
+            text-align: center;
+        }
+
+        #portfolio {
+            background: linear-gradient(to right, #3498db, #2980b9);
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+
+        .card p {
+            flex-grow: 1;
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .cta-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cta-button {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+.menu-icon {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+footer {
+            background-color: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+body.loaded .loading-overlay {
+            display: none;
+        }
+        @media only screen and (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #3498db;
+                z-index: 999;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav li {
+                text-align: center;
+                margin: 0;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            section {
+                padding-top: 90px;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+        .blog-section {
+            max-height: 500px; 
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            padding: 60px 20px;
+            border-radius: 15px;
+            margin-top: 50px;
+        }
+
+        .blog-post {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .blog-post:hover {
+            transform: scale(1.02);
+        }
+
+        .blog-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .blog-content {
+            font-size: 16px;
+            color: #555;
+        }
+        #codingProfiles
+        {
+            padding-bottom: 100px;
+        }
+@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Add styles for form */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #2980b9;
+        }
+
+.dark-mode {
+    background-color: #2c3e50; /* Dark background color */
+    color: #ecf0f1; /* Light text color */
+}
+
+/* Add styles for the dark mode toggle */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+            
+    </style>
+    <title>Ramya Talatam - Portfolio</title>
+</head>
+<body>
+<div class="loading-overlay">
+        Loading...
+    </div>
+<nav>
+        <span class="menu-icon" onclick="toggleMenu()">&#9776; Menu</span>
+        
+<ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#portfolio">Projects</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#codingProfiles">Coding Profiles</a></li>
+            <!-- <li><a href="#contact">Contact</a></li> -->
+        
+</ul>
+    </nav>
+
+    <section id="home">
+        <h1>Ramya Talatam</h1>
+        <p>Computer Science Undergraduate</p>
+<div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 dark mode</div>
+
+    </section>
+
+    <section id="about" class="animated">
+        <h2>About Me</h2>
+        <p>I am a final-year B.Tech student majoring in Computer Science, eager to secure a position as a software engineer in a challenging environment where I can demonstrate my skills, learn new technologies, and contribute to the growth of the organization.</p>
+    </section>
+
+    <section id="education" class="animated">
+        <h2>Education</h2>
+        <h3>University College of Engineering, Kakinada</h3>
+        <p>B.Tech in Computer Science and Engineering<br>
+        Dec 2020 - May 2024<br>
+        GPA: 8.12/10</p>
+        <h3>Aditya Junior College</h3>
+        <p>MPC</p>
+        <ul>
+            <li>CGPA: 9.7/10</li>
+            <li>JEE mains- 98.1 percentile (top 2%)</li>
+            <li>EAMCET rank- 1213 </li>
+            <li>JEE advanced rank- 12k </li>
+        </ul>
+    </section>
+
+    <section id="skills" class="animated">
+        <h2>Skills</h2>
+        <h3>Programming Languages</h3>
+        <p>Python • C • C++ • Java</p>
+        <h3>Web Development</h3>
+        <p>Flask • React • HTML • CSS • JavaScript</p>
+        <h3>Database</h3>
+        <p>SQL • MongoDB</p>
+        <h3>Familiar with</h3>
+        <p>AI • ML • Security • JSON • Restful API</p>
+    </section>
+
+    
+
+    <section id="portfolio" class="animated">
+        <h2 style="color:whitesmoke">My Projects</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>Mind Haven</h3>
+                <p>Designed and developed an AI-mental fitness tracker from scratch. Used AI & ML concepts - Natural Language Processing using NLTK, Textblob, and TensorFlow. Front-end: HTML, CSS, JavaScript. Back-end: Flask, Python.</p>
+                <img src="mind-haven.png" alt="Eduskills App Preview">
+            </div>
+            <div class="card">
+                <h3>TechSheRo Website</h3>
+                <p>Top 100 at the global level in the coding round. Worked on the front-end of TechSheRo for finals. Used React.js for frontend development and MongoDB Atlas for a cloud database. Focuses on female users, providing exposure to STEM subjects, career guidance, and new opportunities.</p>
+                <img src="techshero.jpg" alt="TechShEro Website Preview">
+            </div>
+            <div class="card">
+                <h3>Log Ingestor & Query Interface</h3>
+                <p>Developed Flask-based log ingestion system, enabled HTTP log ingestion and built a query interface to filter logs. Built Restful APIs that served data to the front-end based on dynamically chosen user inputs. Queried MongoDB Atlas database queries from Python using Pymongo and regular expressions (regex) to retrieve necessary information.</p>
+                <img src="log-ingestor.jpg" alt="Log Ingestor Project Preview">
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="animated">
+        <h2>Achievements</h2>
+        <ul>
+            <li>Global Honorary mention in Juspay open mobility challenge.</li>
+            <li>Top 100/67000+ Virtusa Engineering Equity Hackathon grand finalist.</li>
+            <li>Rank- 367 Diamond certified smart coder by smart interviews.</li>
+            <li>Rank- 419/59k+ Techgig geek goddess.</li>
+        </ul>
+  
+    </section>
+
+    <section id="interests" class="animated">
+        <h2>Interests</h2>
+        <ul>
+            <li>Coding, Debugging, DSA, solving puzzles.</li>
+            <li>Chess player, vocalist, and pianist.</li>
+        </ul>
+    </section>
+    <section id="codingProfiles" class="animated">
+        <h2>Coding Profiles</h2>
+        <ul>
+            <li>
+                <a href="https://leetcode.com/aymaR_01" target="_blank">Leetcode</a>
+            </li>
+            <li>
+                <a href="https://www.codechef.com/users/ramya_talatam" target="_blank">CodeChef</a>
+            </li>
+
+            <li><a href="https://codeforces.com/profile/ramya_talatam" target="_blank">Codeforces</a></li>
+            <li>
+                <a href="https://www.hackerrank.com/profile/aymar" target="_blank">Hackerrank</a>
+            </li>
+        </ul>
+    </section>
+    
+    <!-- <section id="blogs" class="blog-section">
+        <h2>Blog</h2>
+
+        
+        <div class="blog-post">
+            <div class="blog-title">My First Blog Post</div>
+            <div class="blog-content">
+                <p>This is the content of my first blog post. You can write about anything interesting or showcase your knowledge in this section.</p>
+            </div>
+        </div>
+
+        
+        <div class="blog-post">
+            <div class="blog-title">Another Blog Post</div>
+            <div class="blog-content">
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+                <p>Here's another blog post. Feel free to add more posts and update the content as you like.</p>
+            </div>
+        </div>
+
+    </section> -->
+<!-- <section id="contact" class="animated">
+<form id="contact-form">
+            <h2>Contact Me</h2>
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+</section>
+    <section class="cta-container">
+        <a href="#contact2" class="cta-button">Contact Me</a>
+  
+</section> -->
+
+<footer>
+    
+<div  class="social-media">
+<a href="https://www.linkedin.com/in/ramya-talatam" target="_blank">LinkedIn</a>
+        <a href="https://github.com/ramya-talatam" target="_blank">GitHub</a>
+    </div>
+</footer>
+
+    <script>
+        function toggleMenu() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('show');
+        }
+
+        
+
+window.addEventListener('load', function () {
+            document.body.classList.add('loaded');
+        });
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+// document.getElementById('contact-form').addEventListener('submit', function (e) {
+//             e.preventDefault();
+//             alert('Message submitted!'); // You can replace this with your backend logic
+//         });
+function toggleDarkMode() {
+        const collection = document.getElementsByClassName("card");
+for (let i = 0; i < collection.length; i++) {
+  collection[i].classList.toggle('dark-mode');
+}
+    
+        document.body.classList.toggle('dark-mode');
+    }
+    </script>
+</body>
+</html>
